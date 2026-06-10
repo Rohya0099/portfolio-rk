@@ -1,5 +1,4 @@
 import { BrainCircuit, BriefcaseBusiness, Code2, CreditCard, Rocket } from "lucide-react";
-import { profile } from "@/lib/profile";
 
 const services = [
   {
@@ -99,7 +98,7 @@ export default function HireMe() {
             </p>
           </div>
           <a
-            href={`mailto:${profile.email}?subject=Project%20Inquiry%20for%20Rohan`}
+            href="#contact"
             className="mt-5 inline-flex w-full items-center justify-center bg-[#D6A84F] px-5 py-3 text-sm font-medium text-[#080A0C] transition-transform hover:-translate-y-0.5 sm:mt-0 sm:w-auto"
           >
             Contact Rohan

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, Variants } from "framer-motion";
-import { Copy, Check, Mail } from "lucide-react";
+import { Copy, Check, Mail, Phone, MessageCircle } from "lucide-react";
 import { profile, profileLinks } from "@/components/profile";
 
 const fadeUpVariants: Variants = {
@@ -14,7 +14,7 @@ const fadeUpVariants: Variants = {
   },
 };
 
-const MagneticButton = ({ children, className, onClick, href }: { children: React.ReactNode, className?: string, onClick?: () => void, href?: string }) => {
+const MagneticButton = ({ children, className, onClick, href, target, rel }: { children: React.ReactNode, className?: string, onClick?: () => void, href?: string, target?: string, rel?: string }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement | HTMLAnchorElement | HTMLButtonElement>) => {
@@ -34,6 +34,8 @@ const MagneticButton = ({ children, className, onClick, href }: { children: Reac
     className: `relative ${className}`,
     onClick,
     href,
+    target,
+    rel,
   };
 
   const Wrapper = href ? motion.a : motion.button;
@@ -96,30 +98,66 @@ export default function Contact() {
             Have an idea, business, or product you want to build? Let&apos;s discuss how we can turn it into reality.
           </p>
 
-          <div className="mb-10 inline-flex items-center gap-2 border border-[#10B981]/15 bg-[#10B981]/10 px-4 py-2 text-sm text-neutral-300">
+          <div className="mb-8 inline-flex items-center gap-2 border border-[#10B981]/15 bg-[#10B981]/10 px-4 py-2 text-sm text-neutral-300">
             <Check className="h-4 w-4 text-[#10B981]" />
             Response time: Usually within 24 hours
           </div>
 
-          <div className="flex flex-col sm:flex-row items-center gap-4 w-full justify-center mb-12">
-            <MagneticButton 
-              href={`mailto:${profile.email}`}
-              className="group flex min-h-14 w-full items-center justify-center gap-3 overflow-hidden bg-[#D6A84F] px-6 py-4 font-medium tracking-wide text-[#080A0C] sm:w-auto sm:min-w-52 sm:px-8"
+          <div className="mb-8 grid w-full max-w-2xl gap-3 text-left sm:grid-cols-2">
+            <a
+              href={`mailto:${profile.email}?subject=Project%20Inquiry%20for%20Rohan`}
+              className="group border border-white/10 bg-white/[0.035] p-4 transition-all duration-300 hover:border-[#D6A84F]/35 hover:bg-white/[0.06]"
             >
-              <span className="relative z-10 transition-transform duration-300 group-hover:-translate-y-[150%] flex items-center gap-2">
-                <Mail className="w-5 h-5" /> Email Me
+              <span className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#D6A84F]">
+                <Mail className="h-4 w-4" /> Email
               </span>
-              <span className="absolute z-10 inset-0 flex items-center justify-center translate-y-[150%] group-hover:translate-y-0 transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] gap-2">
-                <Mail className="w-5 h-5" /> {profile.email}
+              <span className="block break-all text-sm font-medium text-[#F5F2EA]">
+                {profile.email}
               </span>
+            </a>
+            <a
+              href={`tel:${profile.phone}`}
+              className="group border border-white/10 bg-white/[0.035] p-4 transition-all duration-300 hover:border-[#10B981]/35 hover:bg-white/[0.06]"
+            >
+              <span className="mb-2 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[#10B981]">
+                <Phone className="h-4 w-4" /> Phone
+              </span>
+              <span className="block text-sm font-medium text-[#F5F2EA]">
+                {profile.phone}
+              </span>
+            </a>
+          </div>
+
+          <div className="grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4 mb-12">
+            <MagneticButton 
+              href={`mailto:${profile.email}?subject=Project%20Inquiry%20for%20Rohan`}
+              className="group flex min-h-14 w-full items-center justify-center gap-2 overflow-hidden bg-[#D6A84F] px-4 py-4 font-semibold tracking-wide text-[#080A0C]"
+            >
+              <Mail className="w-5 h-5" /> Email Me
+            </MagneticButton>
+
+            <MagneticButton
+              href={`tel:${profile.phone}`}
+              className="group flex min-h-14 w-full items-center justify-center gap-2 border border-[#10B981]/25 bg-[#10B981]/10 px-4 py-4 font-medium tracking-wide text-[#F5F2EA] transition-all duration-300 hover:border-[#10B981]/45 hover:bg-[#10B981]/15"
+            >
+              <Phone className="w-5 h-5 text-[#10B981]" /> Call Me
+            </MagneticButton>
+
+            <MagneticButton
+              href={profile.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex min-h-14 w-full items-center justify-center gap-2 border border-[#10B981]/25 bg-[#10B981]/10 px-4 py-4 font-medium tracking-wide text-[#F5F2EA] transition-all duration-300 hover:border-[#10B981]/45 hover:bg-[#10B981]/15"
+            >
+              <MessageCircle className="w-5 h-5 text-[#10B981]" /> WhatsApp Me
             </MagneticButton>
 
             <MagneticButton 
               onClick={handleCopy}
-              className="group flex min-h-14 w-full items-center justify-center gap-3 border border-neutral-700 bg-transparent px-4 py-4 font-medium text-[#F5F2EA] transition-all duration-300 hover:border-neutral-500 hover:bg-neutral-900 sm:w-auto sm:px-8"
+              className="group flex min-h-14 w-full items-center justify-center gap-2 border border-neutral-700 bg-transparent px-4 py-4 font-medium text-[#F5F2EA] transition-all duration-300 hover:border-neutral-500 hover:bg-neutral-900"
             >
               {copied ? <Check className="w-5 h-5 text-[#10B981]" /> : <Copy className="w-5 h-5 text-neutral-400 group-hover:text-[#F5F2EA]" />}
-              <span className="min-w-0 break-all text-center text-sm sm:w-48 sm:break-normal">{copied ? "Email Copied!" : profile.email}</span>
+              <span className="text-center text-sm">{copied ? "Email Copied!" : "Copy Email"}</span>
             </MagneticButton>
           </div>
 
